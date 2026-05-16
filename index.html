@@ -1,1 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interplanetary Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
+    :root {
+      --bg:      #04080f;
+      --bg2:     #060c18;
+      --card:    #070d1c;
+      --cyan:    #00e5ff;
+      --pink:    #ff2070;
+      --yellow:  #ffe020;
+      --green:   #00ff9d;
+      --text:    #c8e4ff;
+      --muted:   #3a5a7a;
+      --mono:    'Share Tech Mono', monospace;
+      --display: 'Orbitron', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      overflow-x: hidden;
+    }
+
+    /* STARFIELD */
+    canvas#stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* SCANLINES */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.025) 0px,
+        rgba(0,0,0,0.025) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(4,8,15,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,229,255,0.1);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      color: var(--cyan);
+      text-shadow: 0 0 20px rgba(0,229,255,0.5);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 5rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(0,229,255,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,32,112,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-size: 0.67rem;
+      letter-spacing: 0.32em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      border: 1px solid rgba(0,229,255,0.22);
+      padding: 0.3rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-title {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: clamp(2.6rem, 9vw, 6.5rem);
+      line-height: 0.95;
+      animation: fadeUp 0.7s 0.08s ease both;
+    }
+    .hero-title .line1 { color: var(--text); display: block; }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(100deg, var(--cyan), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.9;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .hero-cta {
+      margin-top: 2.6rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.9s 0.22s ease both;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.7rem;
+      font-family: var(--mono);
+      font-size: 0.73rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: all 0.18s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-cyan { background: var(--cyan); color: #000; font-weight: 700; }
+    .btn-cyan:hover {
+      background: transparent;
+      color: var(--cyan);
+      outline: 2px solid var(--cyan);
+      box-shadow: 0 0 18px rgba(0,229,255,0.28);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--pink);
+      outline: 2px solid var(--pink);
+    }
+    .btn-ghost:hover {
+      background: var(--pink);
+      color: #000;
+      box-shadow: 0 0 18px rgba(255,32,112,0.28);
+    }
+
+    /* SECTION */
+    .section-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+    .section-eyebrow {
+      font-size: 0.63rem;
+      letter-spacing: 0.32em;
+      color: var(--pink);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .section-heading {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: clamp(1.5rem, 3.5vw, 2.3rem);
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .section-rule {
+      width: 46px; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      border-radius: 2px;
+      margin-bottom: 4rem;
+    }
+
+    /* GAME CARDS */
+    .games-list { display: flex; flex-direction: column; gap: 5.5rem; }
+
+    .game-entry {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(0,229,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--card);
+      transition: border-color 0.3s;
+    }
+    .game-entry:hover { border-color: rgba(0,229,255,0.28); }
+    .game-entry.flip { direction: rtl; }
+    .game-entry.flip > * { direction: ltr; }
+
+    .game-embed-col {
+      position: relative;
+      background: #000;
+      min-height: 360px;
+    }
+    .game-embed-col iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      border: none;
+      display: block;
+    }
+
+    /* Play overlay */
+    .embed-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: rgba(4,8,15,0.88);
+      cursor: pointer;
+      transition: opacity 0.3s;
+      z-index: 10;
+    }
+    .embed-overlay.hidden { opacity: 0; pointer-events: none; }
+    .overlay-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+    }
+    .play-btn-big {
+      position: relative;
+      z-index: 2;
+      width: 66px; height: 66px;
+      border-radius: 50%;
+      background: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(0,229,255,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .embed-overlay:hover .play-btn-big {
+      transform: scale(1.1);
+      box-shadow: 0 0 60px rgba(0,229,255,0.7);
+    }
+    .play-btn-big svg { margin-left: 4px; }
+    .overlay-label {
+      position: relative;
+      z-index: 2;
+      font-family: var(--display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* Game info */
+    .game-info-col {
+      padding: 2.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+    .game-number { font-size: 0.58rem; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; }
+    .game-title {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .game-tagline { font-size: 0.78rem; color: var(--cyan); letter-spacing: 0.04em; }
+    .game-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.85; }
+
+    .game-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.15rem; }
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .tag-cyan   { border-color: var(--cyan);   color: var(--cyan); }
+    .tag-pink   { border-color: var(--pink);   color: var(--pink); }
+    .tag-yellow { border-color: var(--yellow); color: var(--yellow); }
+    .tag-green  { border-color: var(--green);  color: var(--green); }
+
+    .game-links { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.9; margin-bottom: 0.9rem; }
+    .about-text p strong { color: var(--text); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid rgba(0,229,255,0.1);
+      border-radius: 4px;
+      padding: 1.4rem 1.2rem;
+    }
+    .stat-num {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 1.9rem;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+    /* DIVIDER */
+    hr.divider {
+      position: relative;
+      z-index: 1;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,229,255,0.13), transparent);
+      margin: 0 2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(0,229,255,0.07);
+    }
+    .footer-logo {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-shadow: 0 0 18px rgba(0,229,255,0.35);
+      margin-bottom: 1rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 1.8rem; list-style: none; margin-bottom: 1.4rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy { font-size: 0.67rem; color: var(--muted); opacity: 0.55; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      .game-entry, .game-entry.flip { grid-template-columns: 1fr; direction: ltr; }
+      .game-entry.flip .game-embed-col { order: -1; }
+      .about-grid { grid-template-columns: 1fr; }
+      nav { padding: 0.75rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .game-info-col { padding: 1.6rem 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">⬡ INTERPLANETARY</a>
+  <ul class="nav-links">
+    <li><a href="#games">Games</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">// Indie Game Studio</div>
+  <h1 class="hero-title">
+    <span class="line1">Interplanetary</span>
+    <span class="line2">Studios</span>
+  </h1>
+  <p class="hero-sub">
+    Small team. Big ideas. Five free browser games made with zero AI,
+    zero ads, and a whole lot of love. Just hit play.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-cyan" href="#games">Browse Games</a>
+    <a class="btn btn-ghost" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- GAMES -->
+<div id="games" class="section-wrap">
+  <div class="section-eyebrow">// Our Games</div>
+  <h2 class="section-heading">Play Everything</h2>
+  <div class="section-rule"></div>
+
+  <div class="games-list">
+
+    <!-- 1. BULLET HELL 2.0 -->
+    <div class="game-entry reveal">
+      <div class="game-embed-col">
+        <div class="embed-overlay" id="ov-bh2">
+          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE5OTUxNjQ1LnBuZw==/original/NJNbj3.png" alt="Bullet Hell 2.0"/>
+          <div class="play-btn-big">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="overlay-label">Play Now</span>
+        </div>
+        <iframe id="fr-bh2" src="" allowfullscreen></iframe>
+      </div>
+      <div class="game-info-col">
+        <span class="game-number">01 / 05</span>
+        <h3 class="game-title">Bullet Hell 2.0</h3>
+        <p class="game-tagline">Suffer.</p>
+        <p class="game-desc">
+          Dodge a relentless storm of lasers, bullets, and chaos across escalating stages.
+          Mouse-controlled on PC, tap-to-move on mobile, full controller support included.
+          ⚠️ Warning: flashing lights.
+        </p>
+        <div class="game-tags">
+          <span class="tag tag-pink">Action</span>
+          <span class="tag tag-cyan">Bullet Hell</span>
+          <span class="tag tag-cyan">Controller</span>
+          <span class="tag tag-yellow">One Button</span>
+        </div>
+        <div class="game-links">
+          <a class="btn btn-cyan" href="https://interplanetary-studios.itch.io/bullet-hell-2" target="_blank">itch.io →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. BOOLET -->
+    <div class="game-entry flip reveal">
+      <div class="game-embed-col">
+        <div class="embed-overlay" id="ov-boolet">
+          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE4Njg0NzMzLnBuZw==/original/kIDbFq.png" alt="Boolet"/>
+          <div class="play-btn-big">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="overlay-label">Play Now</span>
+        </div>
+        <iframe id="fr-boolet" src="" allowfullscreen></iframe>
+      </div>
+      <div class="game-info-col">
+        <span class="game-number">02 / 05</span>
+        <h3 class="game-title">Boolet</h3>
+        <p class="game-tagline">Dodge. Die. Repeat.</p>
+        <p class="game-desc">
+          Fast-paced obstacle dodging — weave through hazards and reach the goal as quickly
+          as you can. Retro aesthetics, a banger original soundtrack, and 30+ levels.
+          Also available on Android.
+        </p>
+        <div class="game-tags">
+          <span class="tag tag-pink">Action</span>
+          <span class="tag tag-yellow">Retro</span>
+          <span class="tag tag-green">Music</span>
+          <span class="tag tag-cyan">Android</span>
+        </div>
+        <div class="game-links">
+          <a class="btn btn-cyan" href="https://interplanetary-studios.itch.io/boolet" target="_blank">itch.io →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PLONKO -->
+    <div class="game-entry reveal">
+      <div class="game-embed-col">
+        <div class="embed-overlay" id="ov-plonko">
+          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzIzMTg0OTk0LnBuZw==/original/O3T6gd.png" alt="Plonko"/>
+          <div class="play-btn-big">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="overlay-label">Play Now</span>
+        </div>
+        <iframe id="fr-plonko" src="" allowfullscreen></iframe>
+      </div>
+      <div class="game-info-col">
+        <span class="game-number">03 / 05</span>
+        <h3 class="game-title">Plonko <span style="font-size:0.58em;color:var(--yellow);font-family:var(--mono)">(Demo)</span></h3>
+        <p class="game-tagline">Plonk.</p>
+        <p class="game-desc">
+          A cozy physics plinko game with idle upgrades, achievements, and magical portals.
+          Started as an inside joke, became an obsession for hundreds of players.
+          Full version with music, leaderboards & more in the works.
+        </p>
+        <div class="game-tags">
+          <span class="tag tag-green">Cozy</span>
+          <span class="tag tag-cyan">Idle</span>
+          <span class="tag tag-yellow">Incremental</span>
+          <span class="tag tag-pink">In Dev</span>
+        </div>
+        <div class="game-links">
+          <a class="btn btn-cyan" href="https://interplanetary-studios.itch.io/plonko" target="_blank">itch.io →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. RAGEROOM -->
+    <div class="game-entry flip reveal">
+      <div class="game-embed-col">
+        <div class="embed-overlay" id="ov-rage">
+          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE5NTgwMjU0LnBuZw==/original/tdvgQ7.png" alt="RageRoom"/>
+          <div class="play-btn-big">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="overlay-label">Play Now</span>
+        </div>
+        <iframe id="fr-rage" src="" allowfullscreen></iframe>
+      </div>
+      <div class="game-info-col">
+        <span class="game-number">04 / 05</span>
+        <h3 class="game-title">RageRoom</h3>
+        <p class="game-tagline">Smash stuff. Get money. Smash more stuff.</p>
+        <p class="game-desc">
+          Click to swing your hammer and obliterate everything in sight — including a Cybertruck.
+          Earn cash from the wreckage, then spend it to keep the destruction going.
+          Pure pixel-art physics chaos.
+        </p>
+        <div class="game-tags">
+          <span class="tag tag-pink">Physics</span>
+          <span class="tag tag-yellow">Pixel Art</span>
+          <span class="tag tag-cyan">2D</span>
+          <span class="tag tag-green">Free</span>
+        </div>
+        <div class="game-links">
+          <a class="btn btn-cyan" href="https://interplanetary-studios.itch.io/rageroom" target="_blank">itch.io →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. BULLET HELL THING IDK -->
+    <div class="game-entry reveal">
+      <div class="game-embed-col">
+        <div class="embed-overlay" id="ov-bht">
+          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE2MTA2Mzg3LnBuZw==/original/yHEtan.png" alt="Bullet Hell Thing IDK"/>
+          <div class="play-btn-big">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="overlay-label">Play Now</span>
+        </div>
+        <iframe id="fr-bht" src="" allowfullscreen></iframe>
+      </div>
+      <div class="game-info-col">
+        <span class="game-number">05 / 05</span>
+        <h3 class="game-title">Bullet Hell Thing IDK</h3>
+        <p class="game-tagline">bullet hell.</p>
+        <p class="game-desc">
+          Our Bullet Hell Jam 5 entry and where it all began. Pixel art visuals,
+          original music (HD soundtrack available), and mouse-controlled survival.
+          The seed that grew into Bullet Hell 2.0.
+        </p>
+        <div class="game-tags">
+          <span class="tag tag-pink">Bullet Hell</span>
+          <span class="tag tag-yellow">Pixel Art</span>
+          <span class="tag tag-green">Music</span>
+          <span class="tag tag-cyan">Jam Game</span>
+        </div>
+        <div class="game-links">
+          <a class="btn btn-cyan" href="https://interplanetary-studios.itch.io/bullet-hell-thing-idk" target="_blank">itch.io →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<div id="about" class="section-wrap">
+  <div class="section-eyebrow">// About Us</div>
+  <h2 class="section-heading">Who We Are</h2>
+  <div class="section-rule"></div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        <strong>Interplanetary Studios</strong> is a small indie game development team making
+        free browser games — no ads, no AI-generated content, no paywalls. Every pixel,
+        line of code, and note of music is handcrafted by real humans.
+      </p>
+      <p>
+        We started with a bullet hell jam entry and just kept going. From plinko idle games
+        to physics-destruction sandboxes, we build things we'd actually want to play
+        and share them with anyone who wants to pick them up.
+      </p>
+      <p>
+        Got feedback or just want to say hi? <strong>Join the Discord</strong> —
+        we're active and love hearing from players.
+      </p>
+      <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+        <a class="btn btn-cyan" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
+        <a class="btn btn-ghost" href="https://interplanetary-studios.itch.io/" target="_blank">All Games on itch.io</a>
+      </div>
+    </div>
+
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Games Published</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Free to Play</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Ads Ever</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">AI Used</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">⬡ INTERPLANETARY STUDIOS</div>
+  <ul class="footer-links">
+    <li><a href="#games">Games</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+    <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Interplanetary Studios · No ads · No AI · All games free</p>
+</footer>
+
+<script>
+/* ── STARFIELD ── */
+(function () {
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  function init() {
+    stars = [];
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.2,
+        speed: Math.random() * 0.003 + 0.002,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+  function draw(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of stars) {
+      const a = 0.15 + 0.55 * Math.abs(Math.sin(t * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180,220,255,${a})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', () => { resize(); init(); });
+  resize(); init();
+  requestAnimationFrame(draw);
+})();
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── LAZY EMBEDS ──
+   itch.io embed-upload URLs use the HTML upload ID, not the game ID.
+   These are the correct upload IDs pulled from each game's page source. */
+const embeds = [
+  { ovId: 'ov-bh2',    frId: 'fr-bh2',    src: 'https://itch.io/embed-upload/14648250?color=000000' },
+  { ovId: 'ov-boolet', frId: 'fr-boolet', src: 'https://itch.io/embed-upload/12661578?color=000000' },
+  { ovId: 'ov-plonko', frId: 'fr-plonko', src: 'https://itch.io/embed-upload/3864413?color=000000'  },
+  { ovId: 'ov-rage',   frId: 'fr-rage',   src: 'https://itch.io/embed-upload/3047618?color=000000'  },
+  { ovId: 'ov-bht',    frId: 'fr-bht',    src: 'https://itch.io/embed-upload/2700672?color=000000'  },
+];
+
+embeds.forEach(({ ovId, frId, src }) => {
+  const overlay = document.getElementById(ovId);
+  const frame   = document.getElementById(frId);
+  overlay.addEventListener('click', () => {
+    frame.src = src;
+    overlay.classList.add('hidden');
+  });
+});
+</script>
+</body>
+</html>
