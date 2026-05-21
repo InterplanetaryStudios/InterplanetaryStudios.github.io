@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bullet Hell 2.0 - Interplanetary Studios</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../game.css"/>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<nav>
+  <a class="nav-logo-wrap" href="../index.html">
+    <img class="nav-logo-img" src="../portal.png?v=2" alt="Interplanetary Studios"/>
+    <span class="nav-logo-text">INTERPLANETARY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html#games">Games</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+  </ul>
+</nav>
+<div class="page-wrap">
+  <a class="back-link" href="../index.html">← back to all games</a>
+  <div class="game-eyebrow">// Interplanetary Studios</div>
+  <h1 class="game-title">Bullet Hell 2.0</h1>
+  <p class="game-tagline">Suffer.</p>
+  <div class="game-tags">
+    <span class="tag tag-pink">Action</span>
+    <span class="tag tag-purple">Bullet Hell</span>
+    <span class="tag tag-cyan">Controller</span>
+    <span class="tag tag-yellow">One Button</span>
+  </div>
+  <div class="embed-wrap">
+    <div class="embed-overlay" id="overlay">
+      <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE5OTUxNjQ1LnBuZw==/original/NJNbj3.png" alt="Bullet Hell 2.0"/>
+      <div class="play-btn-big"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <span class="overlay-label">Play Now</span>
+    </div>
+    <iframe id="game-frame" src="" allowfullscreen></iframe>
+  </div>
+  <p class="game-desc">
+    WARNING: FLASHING LIGHTS<br><br>
+    For PC: Use your mouse to control<br>
+    For Mobile: tap where to go<br>
+    P, Esc, or controller pause button to pause<br><br>
+    Controller support!!!
+  </p>
+  <div class="game-actions">
+    <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/bullet-hell-2" target="_blank">View on itch.io →</a>
+    <a class="btn btn-ghost" href="../index.html">← All Games</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo-wrap">
+    <img class="footer-portal" src="../portal.png?v=2" alt=""/>
+    <span class="footer-name">INTERPLANETARY STUDIOS</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="../index.html#games">Games</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+    <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Interplanetary Studios · all games free · play in browser</p>
+</footer>
+<script src="../shared.js"></script>
+<script>
+  document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('game-frame').src = 'https://itch.io/embed-upload/14648250?color=000000';
+    document.getElementById('overlay').classList.add('hidden');
+  });
+</script>
+</body>
+</html>

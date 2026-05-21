@@ -10,463 +10,109 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     :root {
-      --bg:      #04080f;
-      --card:    #070d1c;
-      --purple:  #a855f7;
-      --purple2: #7c3aed;
-      --cyan:    #00e5ff;
-      --pink:    #ff2070;
-      --yellow:  #ffe020;
-      --green:   #00ff9d;
-      --text:    #e8d8ff;
-      --muted:   #5a4a7a;
-      --mono:    'Share Tech Mono', monospace;
-      --display: 'Orbitron', sans-serif;
+      --bg: #04080f; --card: #070d1c; --purple: #a855f7; --cyan: #00e5ff;
+      --pink: #ff2070; --yellow: #ffe020; --green: #00ff9d;
+      --text: #e8d8ff; --muted: #5a4a7a;
+      --mono: 'Share Tech Mono', monospace; --display: 'Orbitron', sans-serif;
     }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--mono);
-      overflow-x: hidden;
-    }
-
-    /* STARFIELD */
-    canvas#stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* SCANLINES */
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); overflow-x: hidden; }
+    canvas#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.025) 0px,
-        rgba(0,0,0,0.025) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      z-index: 9999;
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.025) 0px, rgba(0,0,0,0.025) 1px, transparent 1px, transparent 2px);
     }
-
-    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 2rem;
-      background: rgba(4,8,15,0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(168,85,247,0.18);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 2rem; background: rgba(4,8,15,0.88);
+      backdrop-filter: blur(14px); border-bottom: 1px solid rgba(168,85,247,0.18);
     }
-    .nav-logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      text-decoration: none;
-    }
-    .nav-logo-img {
-      height: 38px;
-      width: 38px;
-      object-fit: contain;
-    }
-    .nav-logo-text {
-      font-family: var(--display);
-      font-weight: 900;
-      font-size: 0.85rem;
-      letter-spacing: 0.14em;
-      color: var(--purple);
-      text-shadow: 0 0 20px rgba(168,85,247,0.6);
-    }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .nav-logo-img { height: 38px; width: 38px; object-fit: contain; }
+    .nav-logo-text { font-family: var(--display); font-weight: 900; font-size: 0.85rem; letter-spacing: 0.14em; color: var(--purple); text-shadow: 0 0 20px rgba(168,85,247,0.6); }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover { color: var(--purple); }
-
-    /* HERO */
+    .btn { display: inline-block; padding: 0.65rem 1.7rem; font-family: var(--mono); font-size: 0.73rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: all 0.18s; cursor: pointer; border: none; }
+    .btn-purple { background: var(--purple); color: #fff; font-weight: 700; }
+    .btn-purple:hover { background: transparent; color: var(--purple); outline: 2px solid var(--purple); box-shadow: 0 0 18px rgba(168,85,247,0.35); }
+    .btn-ghost { background: transparent; color: var(--cyan); outline: 2px solid var(--cyan); }
+    .btn-ghost:hover { background: var(--cyan); color: #000; box-shadow: 0 0 18px rgba(0,229,255,0.28); }
     .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 7rem 2rem 5rem;
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 2rem 5rem;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 55% 45% at 50% 55%, rgba(124,58,237,0.1) 0%, transparent 70%),
-        radial-gradient(ellipse 35% 25% at 15% 80%, rgba(168,85,247,0.06) 0%, transparent 60%);
-      pointer-events: none;
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 55% 45% at 50% 55%, rgba(124,58,237,0.1) 0%, transparent 70%),
+                  radial-gradient(ellipse 35% 25% at 15% 80%, rgba(168,85,247,0.06) 0%, transparent 60%);
     }
-
-    /* Main logo in hero */
-    .hero-logo {
-      width: min(340px, 70vw);
-      margin-bottom: 1.6rem;
-      animation: fadeUp 0.6s ease both;
-      filter: drop-shadow(0 0 30px rgba(168,85,247,0.4));
-    }
-
-    /* Splash text - Minecraft style */
+    .hero-logo { width: min(340px, 70vw); margin-bottom: 1.6rem; animation: fadeUp 0.6s ease both; filter: drop-shadow(0 0 30px rgba(168,85,247,0.4)); }
     .splash {
-      font-family: var(--mono);
-      font-size: clamp(0.7rem, 1.8vw, 0.95rem);
-      color: var(--yellow);
+      font-family: var(--mono); font-size: clamp(0.7rem, 1.8vw, 0.95rem); color: var(--yellow);
       text-shadow: 0 0 12px rgba(255,224,32,0.6), 2px 2px 0 rgba(0,0,0,0.5);
-      letter-spacing: 0.05em;
-      margin-bottom: 1.8rem;
+      letter-spacing: 0.05em; margin-bottom: 1.8rem; max-width: 500px;
       animation: fadeUp 0.7s 0.1s ease both, splashWiggle 2.5s 0.8s ease-in-out infinite;
       transform-origin: center;
-      max-width: 500px;
     }
-    @keyframes splashWiggle {
-      0%,100% { transform: rotate(-2deg) scale(1.02); }
-      50%      { transform: rotate(2deg)  scale(1.05); }
+    @keyframes splashWiggle { 0%,100% { transform: rotate(-2deg) scale(1.02); } 50% { transform: rotate(2deg) scale(1.05); } }
+    .hero-sub { max-width: 440px; color: var(--muted); font-size: 0.82rem; line-height: 1.9; animation: fadeUp 0.8s 0.18s ease both; }
+    .hero-cta { margin-top: 2.4rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.9s 0.25s ease both; }
+    hr.divider { position: relative; z-index: 1; border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(168,85,247,0.15), transparent); margin: 0 2rem; }
+    .section-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+    .section-eyebrow { font-size: 0.63rem; letter-spacing: 0.32em; color: var(--purple); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .section-heading { font-family: var(--display); font-weight: 900; font-size: clamp(1.5rem, 3.5vw, 2.3rem); color: var(--text); margin-bottom: 0.6rem; }
+    .section-rule { width: 46px; height: 3px; background: linear-gradient(90deg, var(--purple), var(--cyan)); border-radius: 2px; margin-bottom: 3rem; }
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .game-card {
+      position: relative; display: block; text-decoration: none;
+      background: var(--card); border: 1px solid rgba(168,85,247,0.13);
+      border-radius: 6px; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
-
-    .hero-sub {
-      max-width: 440px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.9;
-      animation: fadeUp 0.8s 0.18s ease both;
-    }
-    .hero-cta {
-      margin-top: 2.4rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.9s 0.25s ease both;
-    }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-block;
-      padding: 0.65rem 1.7rem;
-      font-family: var(--mono);
-      font-size: 0.73rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 3px;
-      transition: all 0.18s;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-purple { background: var(--purple); color: #fff; font-weight: 700; }
-    .btn-purple:hover {
-      background: transparent;
-      color: var(--purple);
-      outline: 2px solid var(--purple);
-      box-shadow: 0 0 18px rgba(168,85,247,0.35);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--cyan);
-      outline: 2px solid var(--cyan);
-    }
-    .btn-ghost:hover {
-      background: var(--cyan);
-      color: #000;
-      box-shadow: 0 0 18px rgba(0,229,255,0.28);
-    }
-
-    /* SECTION */
-    .section-wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6rem 2rem;
-    }
-    .section-eyebrow {
-      font-size: 0.63rem;
-      letter-spacing: 0.32em;
-      color: var(--purple);
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-    .section-heading {
-      font-family: var(--display);
-      font-weight: 900;
-      font-size: clamp(1.5rem, 3.5vw, 2.3rem);
-      color: var(--text);
-      margin-bottom: 0.6rem;
-    }
-    .section-rule {
-      width: 46px; height: 3px;
-      background: linear-gradient(90deg, var(--purple), var(--cyan));
-      border-radius: 2px;
-      margin-bottom: 4rem;
-    }
-
-    /* GAME CARDS */
-    .games-list { display: flex; flex-direction: column; gap: 5.5rem; }
-
-    .game-entry {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid rgba(168,85,247,0.13);
-      border-radius: 6px;
-      overflow: hidden;
-      background: var(--card);
-      transition: border-color 0.3s;
-    }
-    .game-entry:hover { border-color: rgba(168,85,247,0.35); }
-    .game-entry.flip { direction: rtl; }
-    .game-entry.flip > * { direction: ltr; }
-
-    .game-embed-col {
-      position: relative;
-      background: #000;
-      min-height: 360px;
-    }
-    .game-embed-col iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 360px;
-      border: none;
-      display: block;
-    }
-
-    /* Play overlay */
-    .embed-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      background: rgba(4,4,15,0.88);
-      cursor: pointer;
-      transition: opacity 0.3s;
-      z-index: 10;
-    }
-    .embed-overlay.hidden { opacity: 0; pointer-events: none; }
-    .overlay-thumb {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.28;
-    }
-    .play-btn-big {
-      position: relative;
-      z-index: 2;
-      width: 66px; height: 66px;
-      border-radius: 50%;
-      background: var(--purple);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 40px rgba(168,85,247,0.55);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .embed-overlay:hover .play-btn-big {
-      transform: scale(1.1);
-      box-shadow: 0 0 60px rgba(168,85,247,0.8);
-    }
-    .play-btn-big svg { margin-left: 4px; }
-    .overlay-label {
-      position: relative;
-      z-index: 2;
-      font-family: var(--display);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-
-    /* portal logo watermark on overlay */
-    .overlay-portal {
-      position: absolute;
-      bottom: 12px;
-      right: 14px;
-      width: 36px;
-      opacity: 0.35;
-      z-index: 2;
-    }
-
-    /* Game info */
-    .game-info-col {
-      padding: 2.4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.9rem;
-    }
-    .game-number { font-size: 0.58rem; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; }
-    .game-title {
-      font-family: var(--display);
-      font-weight: 900;
-      font-size: clamp(1.1rem, 2.2vw, 1.7rem);
-      color: var(--text);
-      line-height: 1.1;
-    }
-    .game-tagline { font-size: 0.78rem; color: var(--purple); letter-spacing: 0.04em; }
-    .game-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.85; }
-
-    .game-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.15rem; }
-    .tag {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid;
-    }
-    .tag-purple { border-color: var(--purple); color: var(--purple); }
-    .tag-cyan   { border-color: var(--cyan);   color: var(--cyan); }
-    .tag-pink   { border-color: var(--pink);   color: var(--pink); }
-    .tag-yellow { border-color: var(--yellow); color: var(--yellow); }
-    .tag-green  { border-color: var(--green);  color: var(--green); }
-
-    .game-links { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.4rem; }
-
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; max-width: 620px; }
-    .about-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.9; margin-bottom: 0.9rem; }
-    .about-text p strong { color: var(--text); }
-
-    /* About logos */
-    .about-logos {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 1.4rem;
-      flex-wrap: wrap;
-    }
-    .about-logo-main { height: 90px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(168,85,247,0.35)); }
-    .about-logo-portal { height: 54px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(168,85,247,0.4)); }
-    .logo-divider { width: 1px; height: 60px; background: rgba(168,85,247,0.2); }
-
-    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid rgba(168,85,247,0.12);
-      border-radius: 4px;
-      padding: 1.4rem 1.2rem;
-    }
-    .stat-num {
-      font-family: var(--display);
-      font-weight: 900;
-      font-size: 1.9rem;
-      color: var(--purple);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-    .stat-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-
-    /* DIVIDER */
-    hr.divider {
-      position: relative;
-      z-index: 1;
-      border: none;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(168,85,247,0.15), transparent);
-      margin: 0 2rem;
-    }
-
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 3rem 2rem;
-      border-top: 1px solid rgba(168,85,247,0.09);
-    }
-    .footer-logo-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
+    .game-card:hover { border-color: rgba(168,85,247,0.45); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(168,85,247,0.2); }
+    .game-card-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.25s; }
+    .game-card:hover .game-card-thumb { opacity: 1; }
+    .game-card-body { padding: 1.1rem 1.2rem 1.3rem; }
+    .game-card-title { font-family: var(--display); font-weight: 900; font-size: 0.95rem; color: var(--text); margin-bottom: 0.3rem; }
+    .game-card-tagline { font-size: 0.72rem; color: var(--purple); }
+    .game-card-arrow { position: absolute; top: 0.8rem; right: 0.9rem; font-size: 0.7rem; color: var(--purple); opacity: 0; transition: opacity 0.2s; font-family: var(--mono); }
+    .game-card:hover .game-card-arrow { opacity: 1; }
+    footer { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem; border-top: 1px solid rgba(168,85,247,0.09); }
+    .footer-logo-wrap { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 1.2rem; }
     .footer-portal { height: 32px; opacity: 0.8; filter: drop-shadow(0 0 8px rgba(168,85,247,0.5)); }
-    .footer-name {
-      font-family: var(--display);
-      font-weight: 900;
-      font-size: 0.9rem;
-      letter-spacing: 0.18em;
-      color: var(--purple);
-      text-shadow: 0 0 16px rgba(168,85,247,0.35);
-    }
+    .footer-name { font-family: var(--display); font-weight: 900; font-size: 0.9rem; letter-spacing: 0.18em; color: var(--purple); text-shadow: 0 0 16px rgba(168,85,247,0.35); }
     .footer-links { display: flex; justify-content: center; gap: 1.8rem; list-style: none; margin-bottom: 1.4rem; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.1em; transition: color 0.2s; }
     .footer-links a:hover { color: var(--purple); }
     .footer-copy { font-size: 0.67rem; color: var(--muted); opacity: 0.5; }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* RESPONSIVE */
-    @media (max-width: 720px) {
-      .game-entry, .game-entry.flip { grid-template-columns: 1fr; direction: ltr; }
-      .game-entry.flip .game-embed-col { order: -1; }
-      .about-grid { grid-template-columns: 1fr; }
-      nav { padding: 0.6rem 1rem; }
-      .nav-links { gap: 1rem; }
-      .game-info-col { padding: 1.6rem 1.4rem; }
-      .nav-logo-text { display: none; }
-    }
+    @media (max-width: 720px) { nav { padding: 0.6rem 1rem; } .nav-links { gap: 1rem; } .nav-logo-text { display: none; } }
   </style>
 </head>
 <body>
-
 <canvas id="stars"></canvas>
-
-<!-- NAV -->
 <nav>
-  <a class="nav-logo-wrap" href="#">
-    <img class="nav-logo-img" src="portal.png?v=2" alt="Interplanetary Studios Portal Logo"/>
+  <a class="nav-logo-wrap" href="index.html">
+    <img class="nav-logo-img" src="portal.png?v=2" alt="Interplanetary Studios"/>
     <span class="nav-logo-text">INTERPLANETARY</span>
   </a>
   <ul class="nav-links">
     <li><a href="#games">Games</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
     <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <img class="hero-logo" src="logo.png?v=2" alt="Interplanetary Studios"/>
   <div class="splash" id="splash-text"></div>
-  <p class="hero-sub">
-    This is the official website for Interplanetary Studios (previously known as Floppy Pancake Studios)
-  </p>
+  <p class="hero-sub">This is the official website for Interplanetary Studios (previously known as Floppy Pancake Studios)</p>
   <div class="hero-cta">
     <a class="btn btn-purple" href="#games">Browse Games</a>
     <a class="btn btn-ghost" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
@@ -475,220 +121,56 @@
 
 <hr class="divider"/>
 
-<!-- GAMES -->
 <div id="games" class="section-wrap">
   <div class="section-eyebrow">// Our Games</div>
   <h2 class="section-heading">Play Everything</h2>
   <div class="section-rule"></div>
-
-  <div class="games-list">
-
-    <!-- 1. BULLET HELL 2.0 -->
-    <div class="game-entry reveal">
-      <div class="game-embed-col">
-        <div class="embed-overlay" id="ov-bh2">
-          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE5OTUxNjQ1LnBuZw==/original/NJNbj3.png" alt="Bullet Hell 2.0"/>
-          <div class="play-btn-big">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="overlay-label">Play Now</span>
-          <img class="overlay-portal" src="portal.png?v=2" alt=""/>
-        </div>
-        <iframe id="fr-bh2" src="" allowfullscreen></iframe>
+  <div class="games-grid">
+    <a class="game-card reveal" href="games/bullet-hell-2.html">
+      <img class="game-card-thumb" src="https://img.itch.zone/aW1nLzE5OTUxNjQ1LnBuZw==/original/NJNbj3.png" alt="Bullet Hell 2.0"/>
+      <div class="game-card-body">
+        <div class="game-card-title">Bullet Hell 2.0</div>
+        <div class="game-card-tagline">Suffer.</div>
       </div>
-      <div class="game-info-col">
-        <span class="game-number">01 / 05</span>
-        <h3 class="game-title">Bullet Hell 2.0</h3>
-        <p class="game-tagline">Suffer.</p>
-        <p class="game-desc">
-          WARNING: FLASHING LIGHTS<br><br>
-          For PC: Use your mouse to control<br>
-          For Mobile: tap where to go<br>
-          P, Esc, or controller pause button to pause<br><br>
-          Controller support!!!
-        </p>
-        <div class="game-tags">
-          <span class="tag tag-pink">Action</span>
-          <span class="tag tag-purple">Bullet Hell</span>
-          <span class="tag tag-cyan">Controller</span>
-          <span class="tag tag-yellow">One Button</span>
-        </div>
-        <div class="game-links">
-          <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/bullet-hell-2" target="_blank">itch.io →</a>
-        </div>
+      <span class="game-card-arrow">play →</span>
+    </a>
+    <a class="game-card reveal" href="games/boolet.html">
+      <img class="game-card-thumb" src="https://img.itch.zone/aW1nLzE4Njg0NzMzLnBuZw==/original/kIDbFq.png" alt="Boolet"/>
+      <div class="game-card-body">
+        <div class="game-card-title">Boolet</div>
+        <div class="game-card-tagline">Dodge. Die. Repeat.</div>
       </div>
-    </div>
-
-    <!-- 2. BOOLET -->
-    <div class="game-entry flip reveal">
-      <div class="game-embed-col">
-        <div class="embed-overlay" id="ov-boolet">
-          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE4Njg0NzMzLnBuZw==/original/kIDbFq.png" alt="Boolet"/>
-          <div class="play-btn-big">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="overlay-label">Play Now</span>
-          <img class="overlay-portal" src="portal.png?v=2" alt=""/>
-        </div>
-        <iframe id="fr-boolet" src="" allowfullscreen></iframe>
+      <span class="game-card-arrow">play →</span>
+    </a>
+    <a class="game-card reveal" href="games/plonko.html">
+      <img class="game-card-thumb" src="https://img.itch.zone/aW1nLzIzMTg0OTk0LnBuZw==/original/O3T6gd.png" alt="Plonko"/>
+      <div class="game-card-body">
+        <div class="game-card-title">Plonko <span style="font-size:0.7em;color:var(--yellow)">(Demo)</span></div>
+        <div class="game-card-tagline">Plonk.</div>
       </div>
-      <div class="game-info-col">
-        <span class="game-number">02 / 05</span>
-        <h3 class="game-title">Boolet</h3>
-        <p class="game-tagline">Dodge. Die. Repeat.</p>
-        <p class="game-desc">
-          Play in this fast paced game where you have to speedily dodge obstacles to get to the goal.<br><br>
-          Warning: This game was not designed for mobile in mind, so it might be buggy. Mobile controls are tapping the left and right of the screen.
-        </p>
-        <div class="game-tags">
-          <span class="tag tag-pink">Action</span>
-          <span class="tag tag-yellow">Retro</span>
-          <span class="tag tag-green">Music</span>
-          <span class="tag tag-cyan">Android</span>
-        </div>
-        <div class="game-links">
-          <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/boolet" target="_blank">itch.io →</a>
-        </div>
+      <span class="game-card-arrow">play →</span>
+    </a>
+    <a class="game-card reveal" href="games/rageroom.html">
+      <img class="game-card-thumb" src="https://img.itch.zone/aW1nLzE5NTgwMjU0LnBuZw==/original/tdvgQ7.png" alt="RageRoom"/>
+      <div class="game-card-body">
+        <div class="game-card-title">RageRoom</div>
+        <div class="game-card-tagline">Smash stuff. Get money. Smash more stuff.</div>
       </div>
-    </div>
-
-    <!-- 3. PLONKO -->
-    <div class="game-entry reveal">
-      <div class="game-embed-col">
-        <div class="embed-overlay" id="ov-plonko">
-          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzIzMTg0OTk0LnBuZw==/original/O3T6gd.png" alt="Plonko"/>
-          <div class="play-btn-big">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="overlay-label">Play Now</span>
-          <img class="overlay-portal" src="portal.png?v=2" alt=""/>
-        </div>
-        <iframe id="fr-plonko" src="" allowfullscreen></iframe>
+      <span class="game-card-arrow">play →</span>
+    </a>
+    <a class="game-card reveal" href="games/bullet-hell-thing-idk.html">
+      <img class="game-card-thumb" src="https://img.itch.zone/aW1nLzE2MTA2Mzg3LnBuZw==/original/yHEtan.png" alt="Bullet Hell Thing IDK"/>
+      <div class="game-card-body">
+        <div class="game-card-title">Bullet Hell Thing IDK</div>
+        <div class="game-card-tagline">bullet hell.</div>
       </div>
-      <div class="game-info-col">
-        <span class="game-number">03 / 05</span>
-        <h3 class="game-title">Plonko <span style="font-size:0.55em;color:var(--yellow);font-family:var(--mono)">(Demo)</span></h3>
-        <p class="game-tagline">Plonk.</p>
-        <p class="game-desc">
-          A plinko idle game<br><br>
-          MOBILE RECOMMENDED<br><br>
-          much more in the full version (in development)<br><br>
-          This game is back in development!!!
-        </p>
-        <div class="game-tags">
-          <span class="tag tag-green">Cozy</span>
-          <span class="tag tag-cyan">Idle</span>
-          <span class="tag tag-yellow">Incremental</span>
-          <span class="tag tag-pink">In Dev</span>
-        </div>
-        <div class="game-links">
-          <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/plonko" target="_blank">itch.io →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. RAGEROOM -->
-    <div class="game-entry flip reveal">
-      <div class="game-embed-col">
-        <div class="embed-overlay" id="ov-rage">
-          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE5NTgwMjU0LnBuZw==/original/tdvgQ7.png" alt="RageRoom"/>
-          <div class="play-btn-big">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="overlay-label">Play Now</span>
-          <img class="overlay-portal" src="portal.png?v=2" alt=""/>
-        </div>
-        <iframe id="fr-rage" src="" allowfullscreen></iframe>
-      </div>
-      <div class="game-info-col">
-        <span class="game-number">04 / 05</span>
-        <h3 class="game-title">RageRoom</h3>
-        <p class="game-tagline">Smash stuff. Get money. Smash more stuff.</p>
-        <p class="game-desc">
-          Click to spin hammer
-        </p>
-        <div class="game-tags">
-          <span class="tag tag-pink">Physics</span>
-          <span class="tag tag-yellow">Pixel Art</span>
-          <span class="tag tag-cyan">2D</span>
-          <span class="tag tag-green">Free</span>
-        </div>
-        <div class="game-links">
-          <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/rageroom" target="_blank">itch.io →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. BULLET HELL THING IDK -->
-    <div class="game-entry reveal">
-      <div class="game-embed-col">
-        <div class="embed-overlay" id="ov-bht">
-          <img class="overlay-thumb" src="https://img.itch.zone/aW1nLzE2MTA2Mzg3LnBuZw==/original/yHEtan.png" alt="Bullet Hell Thing IDK"/>
-          <div class="play-btn-big">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="overlay-label">Play Now</span>
-          <img class="overlay-portal" src="portal.png?v=2" alt=""/>
-        </div>
-        <iframe id="fr-bht" src="" allowfullscreen></iframe>
-      </div>
-      <div class="game-info-col">
-        <span class="game-number">05 / 05</span>
-        <h3 class="game-title">Bullet Hell Thing IDK</h3>
-        <p class="game-tagline">bullet hell.</p>
-        <p class="game-desc">
-          For Bullet Hell Jam 5.<br><br>
-          Made by Floppy Pancake Studios Dev Team<br><br>
-          Character follows mouse
-        </p>
-        <div class="game-tags">
-          <span class="tag tag-pink">Bullet Hell</span>
-          <span class="tag tag-yellow">Pixel Art</span>
-          <span class="tag tag-green">Music</span>
-          <span class="tag tag-cyan">Jam Game</span>
-        </div>
-        <div class="game-links">
-          <a class="btn btn-purple" href="https://interplanetary-studios.itch.io/bullet-hell-thing-idk" target="_blank">itch.io →</a>
-        </div>
-      </div>
-    </div>
-
+      <span class="game-card-arrow">play →</span>
+    </a>
   </div>
 </div>
 
 <hr class="divider"/>
 
-<!-- ABOUT -->
-<div id="about" class="section-wrap">
-  <div class="section-eyebrow">// About Us</div>
-  <h2 class="section-heading">Who We Are</h2>
-  <div class="section-rule"></div>
-
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <div class="about-logos">
-        <img class="about-logo-main" src="logo.png?v=2" alt="Interplanetary Studios logo"/>
-        <div class="logo-divider"></div>
-        <img class="about-logo-portal" src="portal.png?v=2" alt="Interplanetary Studios portal logo"/>
-      </div>
-      <p>
-        We try and make free entertaining (and difficult) games!
-      </p>
-      <p>
-        Join the discord for game updates and announcements!!
-      </p>
-      <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <a class="btn btn-purple" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
-        <a class="btn btn-ghost" href="https://interplanetary-studios.itch.io/" target="_blank">All Games on itch.io</a>
-      </div>
-    </div>
-
-
-  </div>
-</div>
-
-<!-- STREET CLEANER 3 PROMO -->
-<hr class="divider"/>
 <div class="section-wrap" style="text-align:center;">
   <div class="section-eyebrow">// also check out</div>
   <h2 class="section-heading">Street Cleaner 3</h2>
@@ -696,7 +178,6 @@
   <iframe src="https://store.steampowered.com/widget/1868680/" frameborder="0" width="646" height="190" style="max-width:100%;"></iframe>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo-wrap">
     <img class="footer-portal" src="portal.png?v=2" alt=""/>
@@ -704,117 +185,13 @@
   </div>
   <ul class="footer-links">
     <li><a href="#games">Games</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
     <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
     <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
   </ul>
   <p class="footer-copy">© 2025 Interplanetary Studios · all games free · play in browser</p>
 </footer>
-
-<script>
-/* ── SPLASH TEXT ── */
-const splashes = [
-  "Now with 12% more bugs","Works on my machine","Locally sourced spaghetti code",
-  "Built at 3 AM","Contains traces of Lua","Try clicking random things",
-  "This website is definitely stable","Not malware probably","One day from release since 2022",
-  "Made with duct tape","Frame-perfect disappointment","Warning: programmer art ahead",
-  "Press F to debug","Runs best on hopes and dreams","If it crashes, it's immersive",
-  "Certified indie moment","Professional button clicker","Now featuring particles",
-  "Please clap","Achievement unlocked: opened website","Optimized eventually",
-  "This took way too long","Now in early early access","Retro because I can't do realism",
-  "You found the splash text","Made in a basement probably","Legally distinct gameplay",
-  "No microtransactions yet","Game dev is pain","100% organic bugs",
-  "Unnecessarily dramatic lighting","Missing textures add atmosphere","This line took 4 hours",
-  "Future game of the year maybe","Can reproduce bugs instantly","Audio may explode",
-  "Contains experimental nonsense","Ask about the lore","UI designed by goblins",
-  "Please wishlist something","Now with screen shake","Built different",
-  "One more feature bro","Physics are suggestions","Hope you like pixels",
-  "Art degree sold separately","The crunch was imaginary","GPU heater included",
-  "The bug is now a feature","Can't stop adding shaders","This seemed easier in my head",
-  "Not responsible for skill issues","Every update breaks something","Try not to clip out of bounds",
-  "Please ignore the placeholder sounds","Totally balanced gameplay","99 little bugs in the code",
-  "The lore goes deeper than intended","Textures loading eventually","Probably haunted",
-  "Press alt+f4 for bonus points","Please don't inspect the source","What is sleep",
-  "I fixed that bug three times","This splash text has ray tracing","Playable on some devices",
-  "Made with questionable math","Main menu simulator","The tutorial is emotional damage",
-  "Loading clever text...","Nothing suspicious here","Will add multiplayer later",
-  "One line of code ruined everything","This website cost my sanity","Do not feed the bugs",
-  "Probably inspired by ULTRAKILL","Probably inspired by Hollow Knight","Probably inspired by Street Cleaner 3",
-  "Probably inspired by Celeste","Probably inspired by PowerWash Simulator",
-  "Probably inspired by Shower With Your Dad Simulator 2015: Do You Still Shower With Your Dad",
-  "Probably inspired by Portal 2","I am NOT a moron","Now with extra contrast",
-  "The void stares back","This could've been a normal hobby","Oops all post-processing",
-  "Screaming internally","No refunds for emotional damage","This button does something maybe",
-  "You are now part of the QA team","The shadows are watching","Soon\u2122",
-  "Made entirely out of If statements","Can you hear the fans spinning?","Now accepting bug sacrifices",
-  "This website passed at least one test","Your GPU fears me","Pretending to know optimization",
-  "The soundtrack slaps though","More updates than stability","100% hand-crafted nonsense",
-  "Mroww :3","We make games I think"
-];
-
-document.getElementById('splash-text').textContent =
-  '★ ' + splashes[Math.floor(Math.random() * splashes.length)] + ' ★';
-
-/* ── STARFIELD ── */
-(function () {
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  function init() {
-    stars = [];
-    for (let i = 0; i < 220; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.3 + 0.2,
-        speed: Math.random() * 0.003 + 0.002,
-        phase: Math.random() * Math.PI * 2,
-        hue: Math.random() < 0.15 ? 270 : 210  // some purple stars
-      });
-    }
-  }
-  function draw(t) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const s of stars) {
-      const a = 0.15 + 0.55 * Math.abs(Math.sin(t * s.speed + s.phase));
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${s.hue},60%,85%,${a})`;
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize', () => { resize(); init(); });
-  resize(); init();
-  requestAnimationFrame(draw);
-})();
-
-/* ── SCROLL REVEAL ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-/* ── LAZY EMBEDS ── */
-const embeds = [
-  { ovId: 'ov-bh2',    frId: 'fr-bh2',    src: 'https://itch.io/embed-upload/14648250?color=000000' },
-  { ovId: 'ov-boolet', frId: 'fr-boolet', src: 'https://itch.io/embed-upload/12661578?color=000000' },
-  { ovId: 'ov-plonko', frId: 'fr-plonko', src: 'https://itch.io/embed-upload/15061015?color=000000' },
-  { ovId: 'ov-rage',   frId: 'fr-rage',   src: 'https://itch.io/embed-upload/11769732?color=000000' },
-  { ovId: 'ov-bht',    frId: 'fr-bht',    src: 'https://itch.io/embed-upload/10418385?color=000000' },
-];
-embeds.forEach(({ ovId, frId, src }) => {
-  const overlay = document.getElementById(ovId);
-  const frame   = document.getElementById(frId);
-  overlay.addEventListener('click', () => {
-    frame.src = src;
-    overlay.classList.add('hidden');
-  });
-});
-</script>
+<script src="shared.js"></script>
 </body>
 </html>

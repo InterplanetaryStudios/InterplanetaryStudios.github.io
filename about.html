@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Interplanetary Studios</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="game.css"/>
+  <style>
+    .about-logos { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
+    .about-logo-main { height: 100px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(168,85,247,0.35)); }
+    .about-logo-portal { height: 60px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(168,85,247,0.4)); }
+    .logo-divider { width: 1px; height: 60px; background: rgba(168,85,247,0.2); }
+    .about-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.9; margin-bottom: 0.9rem; }
+    .about-text p strong { color: var(--text); }
+    .steam-wrap { text-align: center; margin-top: 4rem; }
+  </style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<nav>
+  <a class="nav-logo-wrap" href="index.html">
+    <img class="nav-logo-img" src="portal.png?v=2" alt="Interplanetary Studios"/>
+    <span class="nav-logo-text">INTERPLANETARY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+  <a class="back-link" href="index.html">← back to home</a>
+
+  <div class="section-eyebrow">// About Us</div>
+  <h1 class="section-heading">Who We Are</h1>
+  <div class="section-rule"></div>
+
+  <div class="about-text reveal">
+    <div class="about-logos">
+      <img class="about-logo-main" src="logo.png?v=2" alt="Interplanetary Studios logo"/>
+      <div class="logo-divider"></div>
+      <img class="about-logo-portal" src="portal.png?v=2" alt="Interplanetary Studios portal logo"/>
+    </div>
+    <p>
+      We try and make free entertaining (and difficult) games!
+    </p>
+    <p>
+      Join the discord for game updates and announcements!!
+    </p>
+    <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+      <a class="btn btn-purple" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
+      <a class="btn btn-ghost" href="https://interplanetary-studios.itch.io/" target="_blank">All Games on itch.io</a>
+    </div>
+  </div>
+
+  <div class="steam-wrap reveal">
+    <hr class="divider" style="margin: 3rem 0;"/>
+    <div class="section-eyebrow">// also check out</div>
+    <h2 class="section-heading">Street Cleaner 3</h2>
+    <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+    <iframe src="https://store.steampowered.com/widget/1868680/" frameborder="0" width="646" height="190" style="max-width:100%;"></iframe>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo-wrap">
+    <img class="footer-portal" src="portal.png?v=2" alt=""/>
+    <span class="footer-name">INTERPLANETARY STUDIOS</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+    <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Interplanetary Studios · all games free · play in browser</p>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>
