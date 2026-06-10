@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Newsletter - Interplanetary Studios</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/game.css"/>
+  <style>
+    .newsletter-header { padding: 3rem 0 2rem; }
+    .newsletter-header p { font-size: 0.82rem; color: var(--muted); max-width: 480px; line-height: 1.8; margin-top: 0.6rem; }
+    .posts-list { margin-top: 3rem; }
+    .post-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(168,85,247,0.1);
+      display: block;
+      text-decoration: none;
+      transition: padding-left 0.2s;
+    }
+    .post-item:last-child { border-bottom: none; }
+    .post-item:hover { padding-left: 0.5rem; }
+    .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+    .post-num { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); font-weight: 700; }
+    .post-date { font-size: 0.72rem; color: var(--muted); }
+    .post-tag { font-size: 0.62rem; padding: 0.18em 0.55em; border-radius: 999px; border: 1px solid rgba(168,85,247,0.3); color: var(--muted); letter-spacing: 0.05em; }
+    .post-title { font-family: var(--display); font-weight: 900; font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text); margin-bottom: 0.4rem; transition: color 0.2s; }
+    .post-item:hover .post-title { color: var(--purple); }
+    .post-summary { font-size: 0.8rem; color: var(--muted); line-height: 1.8; max-width: 580px; }
+    .no-posts { font-size: 0.82rem; color: var(--muted); padding: 3rem 0; }
+  </style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<nav>
+  <a class="nav-logo-wrap" href="/">
+    <img class="nav-logo-img" src="/portal.png?v=2" alt="Interplanetary Studios"/>
+    <span class="nav-logo-text">INTERPLANETARY</span>
+  </a>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="/#games">Games</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+  </ul>
+</nav>
+<div class="page-wrap">
+  <div class="newsletter-header">
+    <div class="section-eyebrow">// dev log</div>
+    <h1 class="section-heading">Newsletter</h1>
+    <div class="section-rule"></div>
+    <p>Updates, behind-the-scenes, and whatever else is going on at Interplanetary Studios.</p>
+  </div>
+
+  <div class="posts-list">
+
+    <!--
+    =====================================================
+    HOW TO ADD A POST:
+
+    Copy this block and fill it in:
+
+    <a class="post-item reveal" href="/newsletter/002">
+      <div class="post-meta">
+        <span class="post-num">#002</span>
+        <span class="post-date">Month DD, YYYY</span>
+        <span class="post-tag">devlog</span>
+      </div>
+      <div class="post-title">Your Post Title</div>
+      <p class="post-summary">A sentence or two about what this post covers.</p>
+    </a>
+
+    Then create the file: newsletter/002/index.html
+    (copy newsletter/001/index.html as your starting point)
+    =====================================================
+    -->
+
+    <a class="post-item reveal" href="/newsletter/001">
+      <div class="post-meta">
+        <span class="post-num">#001</span>
+        <span class="post-date">June 10, 2025</span>
+        <span class="post-tag">devlog</span>
+      </div>
+      <div class="post-title">First Post Title Goes Here</div>
+      <p class="post-summary">A short teaser for what this post is about. A sentence or two is plenty.</p>
+    </a>
+
+  </div>
+</div>
+<footer>
+  <div class="footer-logo-wrap">
+    <img class="footer-portal" src="/portal.png?v=2" alt=""/>
+    <span class="footer-name">INTERPLANETARY STUDIOS</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="/#games">Games</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+    <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
+  </ul>
+  <p class="footer-copy">2025 Interplanetary Studios all games free play in browser</p>
+</footer>
+<script src="/shared.js"></script>
+</body>
+</html>

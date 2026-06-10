@@ -55,3 +55,35 @@ footer { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem;
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 720px) { nav { padding: 0.6rem 1rem; } .nav-links { gap: 1rem; } .nav-logo-text { display: none; } }
+
+/* ── HAMBURGER NAV (mobile) ── */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid rgba(168,85,247,0.3);
+  color: var(--text);
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  font-family: var(--mono);
+}
+@media (max-width: 720px) {
+  nav { flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: 0.6rem 1rem; }
+  .nav-logo-wrap { flex: 1; }
+  .nav-logo-text { display: none; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(168,85,247,0.12);
+    padding: 0.5rem 0;
+    margin-top: 0.4rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 0.5rem 0; font-size: 0.8rem; }
+  .games-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post Title - Interplanetary Studios Newsletter</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/game.css"/>
+  <style>
+    .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .post-num { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); font-weight: 700; }
+    .post-date { font-size: 0.72rem; color: var(--muted); }
+    .post-tag { font-size: 0.62rem; padding: 0.18em 0.55em; border-radius: 999px; border: 1px solid rgba(168,85,247,0.3); color: var(--muted); letter-spacing: 0.05em; }
+    .post-body { margin-top: 2rem; }
+    .post-body p { font-size: 0.88rem; color: var(--muted); line-height: 2; margin-bottom: 1.2rem; }
+    .post-body h2 { font-family: var(--display); font-weight: 900; font-size: 1.1rem; color: var(--purple); margin: 2rem 0 0.6rem; }
+    .post-body h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; }
+    .post-body ul, .post-body ol { padding-left: 1.5rem; margin-bottom: 1.2rem; color: var(--muted); font-size: 0.85rem; }
+    .post-body li { margin-bottom: 0.35rem; line-height: 1.8; }
+    .post-body img { max-width: 100%; border-radius: 6px; border: 1px solid rgba(168,85,247,0.2); margin: 1.5rem 0; display: block; }
+    .post-body a { color: var(--purple); text-decoration: underline; }
+    .post-body blockquote { border-left: 3px solid var(--purple); padding-left: 1rem; color: var(--muted); font-style: italic; margin: 1.5rem 0; }
+    .post-body hr { border: none; border-top: 1px solid rgba(168,85,247,0.1); margin: 2rem 0; }
+    .post-body code { background: rgba(168,85,247,0.08); padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.85em; color: var(--cyan); }
+  </style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<nav>
+  <a class="nav-logo-wrap" href="/">
+    <img class="nav-logo-img" src="/portal.png?v=2" alt="Interplanetary Studios"/>
+    <span class="nav-logo-text">INTERPLANETARY</span>
+  </a>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="/#games">Games</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+  </ul>
+</nav>
+<div class="page-wrap">
+  <a class="back-link" href="/newsletter">all posts</a>
+
+  <div class="post-meta">
+    <span class="post-num">#001</span>          <!-- change number -->
+    <span class="post-date">June 10, 2025</span> <!-- change date   -->
+    <span class="post-tag">devlog</span>         <!-- change or remove tag -->
+  </div>
+
+  <h1 class="section-heading">Your Post Title Here</h1>
+  <div class="section-rule"></div>
+
+  <!-- =====================================================
+       WRITE YOUR POST BELOW THIS LINE.
+       Supported: <p>, <h2>, <h3>, <ul>/<ol>, <img>, <blockquote>, <hr>, <code>, <a>
+       ===================================================== -->
+  <div class="post-body">
+
+    <p>Your first paragraph goes here.</p>
+
+    <h2>A section heading</h2>
+
+    <p>More content here.</p>
+
+    <img src="your-screenshot.png" alt="describe the image"/>
+
+    <p>Keep writing as long as you need to.</p>
+
+  </div>
+  <!-- =====================================================
+       END OF POST CONTENT
+       ===================================================== -->
+
+</div>
+<footer>
+  <div class="footer-logo-wrap">
+    <img class="footer-portal" src="/portal.png?v=2" alt=""/>
+    <span class="footer-name">INTERPLANETARY STUDIOS</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="/#games">Games</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Discord</a></li>
+    <li><a href="https://twitter.com/InterplanStudio" target="_blank">Twitter</a></li>
+  </ul>
+  <p class="footer-copy">2025 Interplanetary Studios all games free play in browser</p>
+</footer>
+<script src="/shared.js"></script>
+</body>
+</html>
