@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "logo": "https://interplanetarystudios.github.io/logo.png",
+  "name": "Interplanetary Studios",
+  "theme": {
+    "primary_color": "#4b1380",
+    "secondary_color": "#819ff7"
+  }
+}
