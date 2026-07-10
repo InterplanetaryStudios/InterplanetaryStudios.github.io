@@ -13,6 +13,16 @@
     .logo-divider { width: 1px; height: 60px; background: rgba(168,85,247,0.2); }
     .about-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.9; margin-bottom: 0.9rem; }
     .steam-wrap { text-align: center; margin-top: 4rem; }
+
+    .devs-wrap { margin-top: 4rem; }
+    .devs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin-top: 2rem; }
+    @media (max-width: 720px) { .devs-grid { grid-template-columns: 1fr; } }
+    .dev-card { background: var(--card); border: 1px solid rgba(168,85,247,0.18); border-radius: 8px; padding: 2rem 1.5rem; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+    .dev-card:hover { border-color: rgba(168,85,247,0.45); transform: translateY(-3px); }
+    .dev-pfp { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(168,85,247,0.4); box-shadow: 0 0 24px rgba(168,85,247,0.25); margin: 0 auto 1.2rem; display: block; }
+    .dev-name { font-family: var(--display); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 0.25rem; }
+    .dev-role { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple); margin-bottom: 1rem; }
+    .dev-bio { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
   </style>
 </head>
 <body>
@@ -47,6 +57,31 @@
     <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
       <a class="btn btn-purple" href="https://discord.com/invite/VRuP4XXYqG" target="_blank">Join Discord</a>
       <a class="btn btn-ghost" href="https://interplanetary-studios.itch.io/" target="_blank">All Games on itch.io</a>
+    </div>
+  </div>
+  <div class="devs-wrap reveal">
+    <hr class="divider" style="margin: 3rem 0;"/>
+    <div class="section-eyebrow">// Meet the Devs</div>
+    <h2 class="section-heading">Who Makes This</h2>
+    <div class="section-rule"></div>
+    <div class="devs-grid">
+
+      <!-- Dev 1 -->
+      <div class="dev-card">
+        <img class="dev-pfp" src="/dev1.png" alt="Dev 1 profile picture"/>
+        <div class="dev-name">NAME</div>
+        <div class="dev-role">ROLE / TITLE</div>
+        <p class="dev-bio">Bio placeholder for dev 1.</p>
+      </div>
+
+      <!-- Dev 2 -->
+      <div class="dev-card">
+        <img class="dev-pfp" src="/dev2.png" alt="Dev 2 profile picture"/>
+        <div class="dev-name">NAME</div>
+        <div class="dev-role">ROLE / TITLE</div>
+        <p class="dev-bio">Bio placeholder for dev 2.</p>
+      </div>
+
     </div>
   </div>
   <div class="steam-wrap reveal">
