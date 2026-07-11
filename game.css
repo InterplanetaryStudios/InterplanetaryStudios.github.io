@@ -43,15 +43,22 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .screenshot-gallery a { display: block; border-radius: 6px; overflow: hidden; border: 1px solid rgba(168,85,247,0.2); background: #000; aspect-ratio: 16/10; }
 .screenshot-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.25s, opacity 0.2s; opacity: 0.9; }
 .screenshot-gallery a:hover img { transform: scale(1.05); opacity: 1; }
-.construction-wrap { position: relative; background: var(--card); border: 1px solid rgba(168,85,247,0.2); border-radius: 6px; overflow: hidden; margin-bottom: 2rem; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem; text-align: center; padding: 3rem 1rem; }
+.construction-wrap { position: relative; background: var(--card); border: 1px solid rgba(168,85,247,0.2); border-radius: 6px; overflow: hidden; margin-bottom: 2rem; min-height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem; text-align: center; padding: 3.2rem 1rem; }
 .construction-wrap::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(255,204,0,0.05) 0px, rgba(255,204,0,0.05) 2px, transparent 2px, transparent 14px); pointer-events: none; }
-.tape-banner { position: absolute; left: -8%; width: 116%; padding: 0.55rem 0; background: repeating-linear-gradient(45deg, #ffcc00, #ffcc00 22px, #171310 22px, #171310 44px); box-shadow: 0 4px 16px rgba(0,0,0,0.5); z-index: 2; }
-.tape-banner span { display: block; font-family: var(--display); font-weight: 900; font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: #171310; text-shadow: 0 1px 0 rgba(255,255,255,0.15); text-align: center; }
-.tape-top { top: 22%; transform: rotate(-4deg); }
-.tape-bottom { bottom: 20%; transform: rotate(3deg); }
-.cones-row { position: relative; z-index: 3; font-size: 2.4rem; letter-spacing: 0.9rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
-.construction-heading { position: relative; z-index: 3; font-family: var(--display); font-weight: 900; font-size: clamp(1.1rem, 3.5vw, 1.6rem); letter-spacing: 0.06em; color: #fff; text-shadow: 0 0 24px rgba(255,204,0,0.35); }
-.construction-sub { position: relative; z-index: 3; font-size: 0.75rem; color: var(--muted); max-width: 380px; line-height: 1.7; }
+.tape-banner { position: absolute; left: -8%; width: 116%; max-width: none; padding: 0.5rem 0; background: repeating-linear-gradient(45deg, #ffcc00, #ffcc00 22px, #171310 22px, #171310 44px); box-shadow: 0 4px 16px rgba(0,0,0,0.5); z-index: 2; }
+.tape-banner span { display: block; font-family: var(--display); font-weight: 900; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #171310; text-shadow: 0 1px 0 rgba(255,255,255,0.15); text-align: center; white-space: nowrap; }
+.tape-top { top: 20%; transform: rotate(-4deg); }
+.tape-bottom { bottom: 18%; transform: rotate(3deg); }
+.cones-row { position: relative; z-index: 3; font-size: 2rem; letter-spacing: 0.5rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+.construction-heading { position: relative; z-index: 3; font-family: var(--display); font-weight: 900; font-size: clamp(1rem, 4vw, 1.6rem); letter-spacing: 0.04em; color: #fff; text-shadow: 0 0 24px rgba(255,204,0,0.35); padding: 0 0.5rem; }
+.construction-sub { position: relative; z-index: 3; font-size: 0.72rem; color: var(--muted); max-width: 320px; line-height: 1.7; padding: 0 0.5rem; }
+@media (max-width: 480px) {
+  .construction-wrap { min-height: 230px; padding: 2.6rem 0.5rem; gap: 0.9rem; }
+  .tape-banner span { font-size: 0.56rem; letter-spacing: 0.12em; }
+  .tape-top { top: 16%; }
+  .tape-bottom { bottom: 14%; }
+  .cones-row { font-size: 1.5rem; letter-spacing: 0.35rem; }
+}
 .game-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 .section-eyebrow { font-size: 0.63rem; letter-spacing: 0.32em; color: var(--purple); text-transform: uppercase; margin-bottom: 0.4rem; }
 .section-heading { font-family: var(--display); font-weight: 900; font-size: clamp(1.5rem, 3.5vw, 2.3rem); color: var(--text); margin-bottom: 0.6rem; }
