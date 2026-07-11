@@ -65,6 +65,11 @@
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.1em; transition: color 0.2s; }
     .footer-links a:hover { color: var(--purple); }
     .footer-copy { font-size: 0.67rem; color: var(--muted); opacity: 0.5; }
+    .android-banner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; background: var(--card); border: 1px solid rgba(0,255,157,0.25); border-radius: 6px; padding: 0.9rem 1.3rem; margin-bottom: 1.8rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+    .android-banner:hover { border-color: rgba(0,255,157,0.55); transform: translateY(-2px); }
+    .android-banner-text { font-size: 0.78rem; color: var(--text); }
+    .android-banner-text strong { color: var(--green); }
+    .android-banner-arrow { font-size: 0.72rem; color: var(--green); letter-spacing: 0.05em; white-space: nowrap; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -93,6 +98,7 @@
     <li><a href="/about">About</a></li>
     <li><a href="/newsletter">Newsletter</a></li>
     <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="/android">Android</a></li>
     <li><a href="https://interplanetarystudios.dev/discord" target="_blank">Discord</a></li>
   </ul>
 </nav>
@@ -110,6 +116,10 @@
   <div class="section-eyebrow">// Our Games</div>
   <h2 class="section-heading">Play Everything</h2>
   <div class="section-rule"></div>
+  <a class="android-banner" href="/android">
+    <span class="android-banner-text"><strong>Plonko</strong> &amp; <strong>Boolet</strong> APKs are live &mdash; Android beta sideloads available now.</span>
+    <span class="android-banner-arrow">get the apk →</span>
+  </a>
   <div class="games-grid">
     <a class="game-card construction-card reveal" href="/games/coming-soon">
       <span class="construction-badge">In Dev</span>
@@ -179,6 +189,7 @@
     <li><a href="/about">About</a></li>
     <li><a href="/newsletter">Newsletter</a></li>
     <li><a href="https://interplanetary-studios.itch.io/" target="_blank">itch.io</a></li>
+    <li><a href="/android">Android</a></li>
     <li><a href="https://interplanetarystudios.dev/discord" target="_blank">Discord</a></li>
     <li><a href="https://interplanetarystudios.dev/twitter" target="_blank">Twitter</a></li>
     <li><a href="https://interplanetarystudios.dev/instagram" target="_blank">Instagram</a></li>
