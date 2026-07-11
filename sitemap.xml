@@ -1,57 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<?xml-stylesheet type="text/xsl" href="/download/8eab25ae3-d4ed47b4d/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-
-<url>
-  <loc>https://interplanetarystudios.dev/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/about/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/newsletter/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/games/bullet-hell-2/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/games/boolet/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/games/plonko/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/games/rageroom/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/games/bullet-hell-thing-idk/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://interplanetarystudios.dev/newsletter/001/</loc>
-  <lastmod>2026-06-11T04:06:30+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-
-
+  <url>
+       <loc>https://interplanetarystudios.dev/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/about/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/newsletter/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/android/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/discord/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/coming-soon/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/bullet-hell-2/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/boolet/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/plonko/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/rageroom/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/games/bullet-hell-thing-idk/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/twitter/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/instagram/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://interplanetarystudios.dev/newsletter/001/</loc>
+       <lastmod>2026-07-11T08:43:42+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.4096</priority>
+  </url>
 </urlset>
