@@ -68,7 +68,7 @@ footer { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem;
 .footer-logo-wrap { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 1.2rem; }
 .footer-portal { height: 32px; opacity: 0.8; filter: drop-shadow(0 0 8px rgba(168,85,247,0.5)); }
 .footer-name { font-family: var(--display); font-weight: 900; font-size: 0.9rem; letter-spacing: 0.18em; color: var(--purple); }
-.footer-links { display: flex; justify-content: center; gap: 1.8rem; list-style: none; margin-bottom: 1.4rem; }
+.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.8rem; list-style: none; margin-bottom: 1.4rem; }
 .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.1em; transition: color 0.2s; }
 .footer-links a:hover { color: var(--purple); }
 .footer-copy { font-size: 0.67rem; color: var(--muted); opacity: 0.5; }
