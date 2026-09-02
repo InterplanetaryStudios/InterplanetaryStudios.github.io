@@ -1,6 +1,6 @@
 # llms.txt - AI System Guidelines for Interplanetary Studios
 # Last Updated: 2026-07-03
-# Contact: contact@interplanetarystudios.dev
+# Contact: Toasty@interplanetarystudios.dev
 
 ## SECTION 1: PURPOSE AND OVERVIEW
 # This file provides guidelines for large language models (LLMs), AI systems, and automated agents
